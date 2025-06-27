@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.chakray.modelo.User;
+import com.chakray.passwordencoder.SHA1Util;
 import com.chakray.repository.UserRepository;
 
 import org.springframework.data.domain.Sort;
@@ -54,11 +55,17 @@ public class UserServiceImpl implements IUserService{
 
 		@Override
 		public User saveUser(User user) {
+			// Encriptar la contraseña antes de guardar
+	        String encryptedPassword = SHA1Util.encrypt(user.getPassword());
+	        user.setPassword(encryptedPassword);
 			return userRepository.save(user);
 		}
 
 		@Override
 		public User updateUser(User user) {
+			// Encriptar la contraseña antes de actualizar
+	        String encryptedPassword = SHA1Util.encrypt(user.getPassword());
+	        user.setPassword(encryptedPassword);
 			return userRepository.save(user);
 		}
 

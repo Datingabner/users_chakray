@@ -13,7 +13,6 @@ public interface IUserService {
 	
 	List<User> getAllUsersByName(String name);
 	
-	List<User> getAllUsersByCreatedAt(String createdAt);
 	
 	Optional<User> getUserById(int id);
 	

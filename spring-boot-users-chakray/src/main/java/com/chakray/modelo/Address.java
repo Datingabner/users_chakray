@@ -30,7 +30,7 @@ public class Address {
 	
 	@OneToOne
 	@JoinColumn(name = "related_user", referencedColumnName = "id", nullable = false)
-	private User related_user;
+	private User relatedUser;
 
 
 	public Address() {
@@ -45,7 +45,7 @@ public class Address {
 		this.name = name;
 		this.street = street;
 		this.country_code = country_code;
-		this.related_user = related_user;
+		this.relatedUser = related_user;
 	}
 
 
@@ -90,12 +90,12 @@ public class Address {
 
 
 	public User getRelated_user() {
-		return related_user;
+		return relatedUser;
 	}
 
 
 	public void setRelated_user(User related_user) {
-		this.related_user = related_user;
+		this.relatedUser = related_user;
 	}
 	
 	

@@ -4,10 +4,13 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.chakray.modelo.Address;
+import com.chakray.modelo.User;
 import com.chakray.repository.AddressRepository;
 
+@Service
 public class AddressServiceImpl implements IAddressService{
 	
 	@Autowired
@@ -34,8 +37,8 @@ public class AddressServiceImpl implements IAddressService{
 	}
 
 	@Override
-	public List<Address> getAllAddressesByUserId(int userId) {
-		return addressRepository.findByUserId(userId);
+	public List<Address> getAllAddressesByRelated_user(User userId) {
+		return addressRepository.findByRelatedUser(userId);
 	}
 
 }

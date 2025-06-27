@@ -3,16 +3,14 @@ package com.chakray.repository;
 import java.util.List;
 
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
 import com.chakray.modelo.Address;
+import com.chakray.modelo.User;
 
-public interface AddressRepository  extends CrudRepository<Address, Integer> {
-	// Aquí puedes definir métodos específicos para manejar direcciones
-	// Por ejemplo, encontrar direcciones por usuario, ciudad, etc.
-	// List<Address> findByUserId(int userId);
-	// List<Address> findByCity(String city);
-	
-	List<Address> findByUserId(int userId);
+@Repository
+public interface AddressRepository  extends CrudRepository<Address, Integer> {	
+	List<Address> findByRelatedUser(User related_user);
 	
 
 }

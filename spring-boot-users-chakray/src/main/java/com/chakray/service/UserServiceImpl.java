@@ -41,10 +41,7 @@ public class UserServiceImpl implements IUserService{
 			return userRepository.findByName(name);
 		}
 
-		@Override
-		public List<User> getAllUsersByCreatedAt(String createdAt) {
-			return userRepository.findByCreatedAt(createdAt);
-		}
+		
 
 		@Override
 		public Optional<User> getUserById(int id) {

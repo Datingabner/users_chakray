@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.chakray.modelo.Address;
+import com.chakray.modelo.User;
 
 public interface IAddressService {
 	
@@ -15,6 +16,6 @@ public interface IAddressService {
 	
 	void deleteAddress(int id);
 	
-	List<Address> getAllAddressesByUserId(int userId);
+	List<Address> getAllAddressesByRelated_user(User userId);
 
 }

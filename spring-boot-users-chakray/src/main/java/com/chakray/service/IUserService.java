@@ -22,4 +22,5 @@ public interface IUserService {
 	
 	void deleteUser(int id);
 	
+	public List<User> getAllUsersSorted(String sortField);
 }

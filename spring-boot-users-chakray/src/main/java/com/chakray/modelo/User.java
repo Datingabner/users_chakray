@@ -1,9 +1,18 @@
 package com.chakray.modelo;
 
+import java.sql.Date;
+import java.time.LocalDateTime;
+
+import org.hibernate.annotations.CreationTimestamp;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 
 @Entity
@@ -26,14 +35,21 @@ public class User {
 	private String password;
 	
 	@Column(name = "created_at", nullable = false)
-	private String created_at;
+	@CreationTimestamp
+	@JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss", timezone = "Mexico/General")
+	private LocalDateTime created_at;
+	
+	@PrePersist
+    protected void onCreate() {
+        created_at = LocalDateTime.now();
+    }
 
 	public User() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public User(int id, String email, String name, String password, String created_at) {
+	public User(int id, String email, String name, String password, LocalDateTime created_at) {
 		super();
 		this.id = id;
 		this.email = email;
@@ -74,11 +90,11 @@ public class User {
 		this.password = password;
 	}
 
-	public String getCreated_at() {
+	public LocalDateTime getCreated_at() {
 		return created_at;
 	}
 
-	public void setCreated_at(String created_at) {
+	public void setCreated_at(LocalDateTime created_at) {
 		this.created_at = created_at;
 	}
 	

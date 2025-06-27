@@ -1,5 +1,9 @@
 package com.chakray.modelo;
 
+
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -30,6 +34,7 @@ public class Address {
 	
 	@OneToOne
 	@JoinColumn(name = "related_user", referencedColumnName = "id", nullable = false)
+	@JsonIgnoreProperties({"email", "name", "password", "created_at"})
 	private User relatedUser;
 
 

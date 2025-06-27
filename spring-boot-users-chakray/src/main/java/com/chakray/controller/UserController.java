@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.chakray.modelo.Address;
@@ -53,20 +54,35 @@ public class UserController {
 	 */
 	
 	
-	@GetMapping("/sorterBymail={email}")
-	public List<User> getAllUserByEmail(@PathVariable String email) {
-		return (List<User>) userService.getAllUsersByEmail(email);
-	}
-	@GetMapping("/sorterByname={name}")
-	public List<User> getAllUserByName(@PathVariable String name) {
-		return (List<User>) userService.getAllUsersByName(name);
-	}
+	 @GetMapping
+	    public List<User> getAllUsers(@RequestParam(required = false) String sortedBy) {
+	        
+	        // Validar y mapear el parámetro sortedBy al campo correspondiente
+	        String sortField = "id"; // Valor por defecto
+	        if (sortedBy != null && !sortedBy.isEmpty()) {
+	            switch (sortedBy.toLowerCase()) {
+	                case "email":
+	                    sortField = "email";
+	                    break;
+	                case "name":
+	                    sortField = "name";
+	                    break;
+	                case "created_at":
+	                    sortField = "createdAt";
+	                    break;
+	                // id es el valor por defecto
+	            }
+	        }
+	        
+	        return userService.getAllUsersSorted(sortField);
+	    }
 	
 	
 	@GetMapping("/{id}/address")
 	public List<Address> getAddressByIdUser(@PathVariable int id) {
-		Optional<User> user=userService.getUserById(id);
-		return addressService.getAllAddressesByRelated_user(user.get());
+		Optional<User> userId=null;
+		userId=userService.getUserById(id);
+		return addressService.getAllAddressesByRelated_user((User) userId.get());
 	}
 	
 	@PutMapping("/{id}/addresses/{addressid}")
@@ -103,7 +119,7 @@ public class UserController {
 	public ResponseEntity<Void> deleteUser(@PathVariable int id) {
 		if(userService.getUserById(id).isPresent()) {
 			userService.deleteUser(id);
-			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+			return new ResponseEntity<>(HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}

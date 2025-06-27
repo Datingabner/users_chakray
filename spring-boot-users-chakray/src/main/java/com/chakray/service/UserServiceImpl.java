@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import com.chakray.modelo.User;
 import com.chakray.repository.UserRepository;
 
+import org.springframework.data.domain.Sort;
+
 @Service
 public class UserServiceImpl implements IUserService{
 		// Aquí se implementarán los métodos definidos en la interfaz UserService
@@ -25,6 +27,8 @@ public class UserServiceImpl implements IUserService{
 
 	@Autowired
 	private UserRepository userRepository;
+
+	// Aquí puedes implementar los métodos de la interfaz UserService
 
 		@Override
 		public List<User> getAllUsers() {
@@ -62,7 +66,12 @@ public class UserServiceImpl implements IUserService{
 		public void deleteUser(int id) {
 			userRepository.deleteById(id);
 		}
-
-	
-	// Aquí puedes implementar los métodos de la interfaz UserService
+		
+		@Override
+		 public List<User> getAllUsersSorted(String sortField) {
+		        // Crear objeto Sort basado en el campo de ordenación
+		        Sort sort = Sort.by(sortField);
+		        // Obtener todos los usuarios ordenados
+		        return userRepository.findAll(sort);
+		    }
 }

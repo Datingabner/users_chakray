@@ -34,7 +34,7 @@ public class User {
 	@Column(name = "password", nullable = false)
 	private String password;
 	
-	@Column(name = "created_at", nullable = false)
+	@Column(name = "created_at", nullable = false, updatable = false)
 	@CreationTimestamp
 	@JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss", timezone = "Mexico/General")
 	private LocalDateTime created_at;

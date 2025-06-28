@@ -1,8 +1,10 @@
 package com.chakray.service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
+import org.hibernate.type.descriptor.java.LocalDateTimeJavaType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -56,8 +58,10 @@ public class UserServiceImpl implements IUserService{
 		@Override
 		public User saveUser(User user) {
 			// Encriptar la contraseña antes de guardar
+			LocalDateTime timestamp = LocalDateTime.now();
 	        String encryptedPassword = SHA1Util.encrypt(user.getPassword());
 	        user.setPassword(encryptedPassword);
+	        user.setCreated_at(timestamp);
 			return userRepository.save(user);
 		}
 
